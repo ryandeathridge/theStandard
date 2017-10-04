@@ -15,6 +15,14 @@ class ItemCell: UITableViewCell {
     @IBOutlet weak var spread: UILabel!
     @IBOutlet weak var age: UILabel!
 
+    func configureCell(item: Entry) {
     
+        let todaysDate = Date()
+    
+    date.text = "\(item.created)"
+    spread.text = "Spread: \(item.spread)mm"
+    age.text = "\(todaysDate)-\(item.created)"
+        
+    }
 
 }

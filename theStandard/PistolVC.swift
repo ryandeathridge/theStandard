@@ -13,7 +13,7 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
 
     @IBOutlet weak var tableView: UITableView!
     
-    var fetchedResultsController: NSFetchedResultsController<Entry>!
+    var controller: NSFetchedResultsController<Entry>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +21,9 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
         tableView.delegate = self
         tableView.dataSource = self
         
-        attemptFetch()
-        generateTestData()
+       // generateTestData()
+         attemptFetch()
+        
         
         
         
@@ -32,27 +33,56 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
     
     func configureCell(cell: ItemCell, indexPath: NSIndexPath) {
         
-       // let item = controller.object(at: indexPath as IndexPath)
-       // cell.configureCell(item: item)
+       let item = controller.object(at: indexPath as IndexPath)
+        cell.configureCell(item: item)
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! ItemCell
+        configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
+        
+        return cell
+        
     }
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if let sections = controller.sections {
+            return sections.count
+        }
         return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        if let sections = controller.sections {
+            let sectionInfo = sections[section]
+            return sectionInfo.numberOfObjects
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //code here
+        
+        if let objs = controller.fetchedObjects , objs.count > 0 {
+            let item = objs[indexPath.row]
+            performSegue(withIdentifier: "EditEntry", sender: item)
+        }
+            
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditEntry" {
+            if let destination = segue.destination as? addItemVC {
+                if let item = sender as? Entry {
+                    destination.itemToEdit = item
+                }
+            }
+        }
+    }
+
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
@@ -66,6 +96,10 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
         fetchRequest.sortDescriptors = [dateSort]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+       
+        controller.delegate = self
+        self.controller = controller
+        
         
         do {
             
@@ -124,18 +158,23 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
         
     }
     
+    let todaysDate = Date()
+    let formatter = DateFormatter()
+    
     
     func generateTestData() {
         
         let item = Entry(context: context)
-        //  item.date = NSDate
+        item.created = (todaysDate as NSDate)
         item.spread = 270
         
         let item1 = Entry(context: context)
-        //  item.date = NSDate
-        item1.spread = 270
+        item1.created = (todaysDate as NSDate)
+        item1.spread = 330
         
-        
+        let item2 = Entry(context: context)
+        item2.created = (todaysDate as NSDate)
+        item2.spread = 160
         
         
         ad.saveContext()
