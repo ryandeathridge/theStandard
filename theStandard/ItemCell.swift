@@ -22,7 +22,7 @@ class ItemCell: UITableViewCell {
     date.text = "\(item.created)"
     spread.text = "Spread: \(item.spread)mm"
     age.text = "\(todaysDate)-\(item.created)"
-        
+    thumb.image = item.toImage?.image as? UIImage
     }
 
 }

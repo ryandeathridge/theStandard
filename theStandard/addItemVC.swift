@@ -60,7 +60,10 @@ class addItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         let todaysDate = Date()
         var item: Entry!
-        item.image = thumbImg.image
+        let picture = Image(context: context)
+        picture.image = thumbImg.image
+        
+        
         
         if itemToEdit == nil {
             item = Entry(context: context)
@@ -68,12 +71,13 @@ class addItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             item = itemToEdit
         }
         
+        item.toImage = picture
+        
         
         if let spread = spreadField.text {
           
             item.spread = (spread as NSString).floatValue
             item.created = (todaysDate as NSDate)
-            thumbImg.image = item.image as? UIImage
            
             
         }
@@ -85,6 +89,7 @@ class addItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         if let item = itemToEdit {
             spreadField.text = "\(item.spread)"
+            thumbImg.image = item.toImage?.image as? UIImage
             
         }
         
