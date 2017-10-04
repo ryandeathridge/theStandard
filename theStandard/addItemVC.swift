@@ -61,6 +61,7 @@ class addItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBAction func savePressed(_ sender: UIButton) {
         
         let todaysDate = Date()
+      
         var item: Entry!
         let picture = Image(context: context)
         picture.image = thumbImg.image

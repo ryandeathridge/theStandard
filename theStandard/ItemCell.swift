@@ -17,12 +17,23 @@ class ItemCell: UITableViewCell {
 
     func configureCell(item: Entry) {
     
-        let todaysDate = Date()
+        let todaysDate = NSDate()
+        let createdDate = item.created
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        let formattedDate = formatter.string(from: todaysDate as Date)
+        let ageFormatter = DateComponentsFormatter()
+        ageFormatter.unitsStyle = .short
+        ageFormatter.allowedUnits = [.day]
+        ageFormatter.maximumUnitCount = 2
+        let spreadInt:Int = Int(item.spread)
+        let ageString = ageFormatter.string(from: createdDate! as Date, to: todaysDate as Date)
+        
     
-    date.text = "\(item.created)"
-    spread.text = "Spread: \(item.spread)mm"
-    age.text = "\(todaysDate)-\(item.created)"
+    date.text = formattedDate
+    age.text = ageString!+" ago"
     thumb.image = item.toImage?.image as? UIImage
+    spread.text = "Spread: \(spreadInt)mm"
     }
 
 }

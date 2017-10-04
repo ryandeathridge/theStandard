@@ -158,27 +158,9 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
         
     }
     
-    let todaysDate = Date()
-    let formatter = DateFormatter()
+
     
-    
-    func generateTestData() {
-        
-        let item = Entry(context: context)
-        item.created = (todaysDate as NSDate)
-        item.spread = 270
-        
-        let item1 = Entry(context: context)
-        item1.created = (todaysDate as NSDate)
-        item1.spread = 330
-        
-        let item2 = Entry(context: context)
-        item2.created = (todaysDate as NSDate)
-        item2.spread = 160
-        
-        
-        ad.saveContext()
-    }
+   
 
     
     
