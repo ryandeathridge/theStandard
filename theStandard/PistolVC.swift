@@ -8,10 +8,12 @@
 
 import UIKit
 import CoreData
+import Charts
 
 class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var chartView: LineChartView!
     
     var controller: NSFetchedResultsController<Entry>!
     
@@ -21,10 +23,8 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
         tableView.delegate = self
         tableView.dataSource = self
         
-       // generateTestData()
-         attemptFetch()
-        
-        
+        attemptFetch()
+        updateGraph()
         
         
     }
@@ -154,13 +154,39 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
             
         }
         
-        
-        
     }
     
+    
+    
+    // GRAPH CODE
+
 
     
-   
+    var horizontal = [10, 12, 14, 16, 18, 20]
+    var vertical = [1.0, 2.0, 3.0, 4.0, 5.0,]
+    
+    
+    func updateGraph() {
+        var lineChartEntry = [ChartDataEntry]()
+        
+        for i in 0..<vertical.count {
+            
+            let value = ChartDataEntry(x: Double(i), y: Double(vertical[i]))
+            lineChartEntry.append(value)
+        }
+        let line1 = LineChartDataSet(values: lineChartEntry, label: "vertical")
+        line1.colors = [NSUIColor.blue]
+        
+        let data = LineChartData()
+        data.addDataSet(line1)
+        
+        
+        chartView.data = data
+        chartView.chartDescription?.text = "test 2"
+       // chartView.data = data
+        //chartView.chartDescription?.text = "Test Chart Data"
+    }
+
 
     
     
