@@ -92,7 +92,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-xT-76S" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="464" width="374" height="272"/>
+                                <rect key="frame" x="0.0" y="464" width="414" height="272"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -100,10 +100,10 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="04m-Sm-8Yf" secondAttribute="trailing" id="B9k-LT-NDL"/>
                             <constraint firstItem="04m-Sm-8Yf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="LNs-Wx-SC2"/>
-                            <constraint firstItem="ZWX-xT-76S" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="N8E-7S-aV2"/>
                             <constraint firstItem="04m-Sm-8Yf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ZG9-n4-dg7"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ZWX-xT-76S" secondAttribute="bottom" id="Ztc-q6-h4r"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ZWX-xT-76S" secondAttribute="trailing" id="iX9-dP-0QO"/>
+                            <constraint firstItem="ZWX-xT-76S" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="g2b-3q-Rsx"/>
+                            <constraint firstAttribute="trailing" secondItem="ZWX-xT-76S" secondAttribute="trailing" id="vyn-G6-4yB"/>
                             <constraint firstItem="ZWX-xT-76S" firstAttribute="top" secondItem="04m-Sm-8Yf" secondAttribute="bottom" id="wsD-PV-Znz"/>
                         </constraints>
                     </view>

@@ -36,4 +36,6 @@ class ItemCell: UITableViewCell {
     spread.text = "Spread: \(spreadInt)mm"
     }
 
+    
+    
 }

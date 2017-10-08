@@ -16,6 +16,7 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
     @IBOutlet weak var chartView: LineChartView!
     
     var controller: NSFetchedResultsController<Entry>!
+    var stores = [Entry]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
         attemptFetch()
         updateGraph()
         
+    
         
     }
     
@@ -93,7 +95,9 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
     func attemptFetch() {
         let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
         let dateSort = NSSortDescriptor(key: "created", ascending: false)
+        let spreadSort = NSSortDescriptor(key: "spread", ascending: false)
         fetchRequest.sortDescriptors = [dateSort]
+        fetchRequest.sortDescriptors = [spreadSort]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
        
@@ -104,6 +108,7 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
         do {
             
             try controller.performFetch()
+        
         
         } catch {
             
@@ -159,66 +164,94 @@ class PistolVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NS
     
     
     // GRAPH CODE
-
-
-    
-    var horizontal = [10, 12, 14, 16, 18, 20]
-    var vertical = [1.0, 2.0, 3.0, 4.0, 5.0,]
     
     
     func updateGraph() {
+    
+        let fetchRequest: NSFetchRequest<Spread> = Spread.fetchRequest()
+        let spreadSort = NSSortDescriptor(key: "spread", ascending: true)
+        fetchRequest.sortDescriptors = [spreadSort]
+       
+     
+        
+      //  let item = Spread(context: context)
+            //let spread = item.spread
+            var horizontal = [309.0, 401.0, 122.0, 123.0, 225.0, 256.0, 306.0, 401.0, 390.0]
+
+    
+        
         var lineChartEntry = [ChartDataEntry]()
         
-        for i in 0..<vertical.count {
+        for i in 0..<horizontal.count {
             
-            let value = ChartDataEntry(x: Double(i), y: Double(vertical[i]))
+            let value = ChartDataEntry(x: Double(Float(i)), y: Double(Float(horizontal[i])))
             lineChartEntry.append(value)
         }
-        let line1 = LineChartDataSet(values: lineChartEntry, label: "vertical")
-        line1.colors = [NSUIColor.blue]
+        let line1 = LineChartDataSet(values: lineChartEntry, label: "")
+        line1.colors = [NSUIColor.red]
         
         let data = LineChartData()
         data.addDataSet(line1)
         
         
         chartView.data = data
-        chartView.chartDescription?.text = "test 2"
-       // chartView.data = data
-        //chartView.chartDescription?.text = "Test Chart Data"
+        chartView.chartDescription?.text = ""
+        chartView.drawBordersEnabled = false
+        
+        chartView.tintColor = UIColor.red
+        
+       
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.xAxis.drawLabelsEnabled = false
+        
+        chartView.leftAxis.drawLabelsEnabled = false
+        
+        chartView.rightAxis.drawLabelsEnabled = false
+        chartView.leftAxis.drawGridLinesEnabled = false
+        chartView.rightAxis.drawGridLinesEnabled = false
+        
+        
+    
+        
+        
+        
+       
+    }
+    
+ 
+
+    
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
 

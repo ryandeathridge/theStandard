@@ -4,13 +4,19 @@
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="spread" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="toImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="toEntry" inverseEntity="Image" syncable="YES"/>
+        <relationship name="toSpread" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Spread" inverseName="toEntry" inverseEntity="Spread" syncable="YES"/>
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="toEntry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="toImage" inverseEntity="Entry" syncable="YES"/>
     </entity>
+    <entity name="Spread" representedClassName="Spread" syncable="YES" codeGenerationType="class">
+        <attribute name="spread" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="toEntry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="toSpread" inverseEntity="Entry" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Entry" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Entry" positionX="-63" positionY="-18" width="128" height="105"/>
         <element name="Image" positionX="-54" positionY="18" width="128" height="75"/>
+        <element name="Spread" positionX="-63" positionY="27" width="128" height="75"/>
     </elements>
 </model>
